@@ -6,7 +6,7 @@ void main() async {
   await Hive.initFlutter();
 
   // open a box
-  var box = await Hive.openBox('bagihbox');
+  await Hive.openBox('bagihbox');
 
   runApp(const MyApp());
 }
@@ -20,7 +20,6 @@ class MyApp extends StatefulWidget {
 
 class _MyAppState extends State<MyApp> {
   final _textEditingController = TextEditingController();
-  bool _isBoxNotEmpty = false;
   String? _boxResult = '';
 
   final _box = Hive.box('bagihbox');
@@ -28,10 +27,6 @@ class _MyAppState extends State<MyApp> {
   void writeBox() {
     if (_textEditingController.text.isNotEmpty) {
       _box.put(1, _textEditingController.text);
-      print(_box.get(1));
-      setState(() {
-        _isBoxNotEmpty = true;
-      });
     }
   }
 
@@ -43,9 +38,6 @@ class _MyAppState extends State<MyApp> {
 
   void deleteBoxEntry() {
     _box.delete(1);
-    setState(() {
-      _isBoxNotEmpty = false;
-    });
   }
 
   @override
@@ -59,7 +51,7 @@ class _MyAppState extends State<MyApp> {
             children: [
               // Text Result
               Text(
-                _isBoxNotEmpty ? _boxResult.toString() : 'no data found',
+                _boxResult ?? 'no data found',
                 style: const TextStyle(
                   fontSize: 20,
                 ),
