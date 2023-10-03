@@ -1,6 +1,6 @@
 # hive_app
 
-A new Flutter project.
+My learning project for using hive document database on flutter. this project demonstrate hive crud operation on flutter.
 
 ## App Screenshots
 
